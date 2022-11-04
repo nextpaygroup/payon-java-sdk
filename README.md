@@ -169,10 +169,11 @@ if(response.getErrorCode.equals("00"){
 
 ```java
 PayonHelper helper = new PayonHelper(mcId, appId, secretKey, url, httpAuth, httpAuthPass);
-PayonResponse response = helper.validateNotify(jsonStringBody, checksum); // jsonStringBody và checksum được trả về qua url
+boolean response = helper.validateNotify(jsonStringBody, checksum); // jsonStringBody và checksum được trả về qua url
 
-if(response.getErrorCode.equals("00"){
-    // Call API thành công, tiếp tục xử lý
+if(response){
+    // Request hợp lệ và tiếp tục xử lý
+    // Call $payon->CheckPayment($merchant_request_id) để lấy trạng thái đơn hàng mới nhất sau đó sẽ xử lý cập nhật trạng thái đơn hàng
 } else {
     //Có lỗi xảy ra check lỗi trả về
 }

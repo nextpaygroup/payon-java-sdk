@@ -34,23 +34,6 @@ public class PayonHelper {
         this.refCode = "MCAPI-JV";
     }
 
-    public static void main(String[] args) throws Exception {
-        String json = "{ \"error_code\": \"05\", \"error_message\": \"Tham số không hợp lệ\", \"app_id\": \"\", \"checksum\": \"\" }";
-        PayonResponse response = objectMapper.readValue(json, PayonResponse.class);
-        System.out.println(response);
-
-        long mcId = 10000002990L;
-        String url = "https://dev-api-merchant.payon.vn/v1/merchant";
-        String httpAuth = "checkout";
-        String httpAuthPass = "123456";
-        String appId = "10000002990nN4nzvfa";
-        String secKey = "vyTqREMHQT8D4jtwYrqkAd";
-        PayonHelper helper = new PayonHelper(mcId, appId, secKey, url, httpAuth, httpAuthPass);
-
-//        PayonResponse response1 = helper.getBankInstallment();
-//        System.out.println(response1);
-    }
-
     public boolean isSslVerifypeer() {
         return sslVerifypeer;
     }
@@ -107,7 +90,6 @@ public class PayonHelper {
         String dataChecksum = PayonSecurity.md5(this.appId + data + this.secretKey);
         return checksum.equals(dataChecksum);
     }
-
 
     private PayonResponse buildPayment(String uri,Object params) throws Exception {
         String data = encryptDate(params, this.secretKey);

@@ -13,6 +13,19 @@
 
 # Cài đặt và loading
 
+- Cài dặt bằng Maven
+```xml
+<dependency>
+    <groupId>io.github.nextpaygroup</groupId>
+    <artifactId>payon-java-sdk</artifactId>
+    <version>1.0.1</version>
+</dependency>
+```
+- Cài đặt bằng Gradle
+```
+implementation group: 'io.github.nextpaygroup', name: 'payon-java-sdk', version: '1.0.1'
+```
+
 # Code mẫu
 
 - Các thanh số truyền vào hàm PayonHelper

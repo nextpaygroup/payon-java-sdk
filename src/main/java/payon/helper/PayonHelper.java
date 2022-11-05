@@ -42,11 +42,23 @@ public class PayonHelper {
         this.sslVerifypeer = sslVerifypeer;
     }
 
+    /**
+     *
+     * @param mapParams - Map of payment information
+     * @return PayonResponse
+     * @throws Exception - Exception throws when call api get error
+     */
     public PayonResponse createOrderPaynow(Map<String, Object> mapParams) throws Exception {
         mapParams.put("merchant_id", this.mcId);
         return this.buildPayment("createOrderPaynow", mapParams);
     }
 
+    /**
+     *
+     * @param merchantRequestId - merchant request id when order was created
+     * @return PayonResponse
+     * @throws Exception - Exception throws when call api get error
+     */
     public PayonResponse checkPayment(String merchantRequestId) throws Exception {
         Map<String, Object> mapParams = new HashMap<>();
         mapParams.put("merchant_request_id", merchantRequestId);
@@ -54,21 +66,43 @@ public class PayonHelper {
 
     }
 
+    /**
+     *
+     * @return PayonResponse
+     * @throws Exception - Exception throws when call api get error
+     */
     public PayonResponse getBankInstallment() throws Exception {
         Map<String, Object> mapParams = new HashMap<>();
         return this.buildPayment("getBankInstallmentV2", mapParams);
     }
 
+    /**
+     *
+     * @param mapParams - Map of payment information
+     * @return PayonResponse
+     * @throws Exception - Exception throws when call api get error
+     */
     public PayonResponse getFee(Map<String, Object> mapParams) throws Exception {
         mapParams.put("merchant_id", this.mcId);
         return this.buildPayment("getFeeInstallmentv2", mapParams);
     }
 
+    /**
+     *
+     * @param mapParams - Map of payment information
+     * @return PayonResponse
+     * @throws Exception - Exception throws when call api get error
+     */
     public PayonResponse createOrderInstallment(Map<String, Object> mapParams) throws Exception {
         mapParams.put("merchant_id", this.mcId);
         return this.buildPayment("createOrderInstallment", mapParams);
     }
 
+    /**
+     *
+     * @return PayonResponse
+     * @throws Exception - Exception throws when call api get error
+     */
     public PayonResponse getQrBankCode() throws Exception {
         Map<String, Object> mapParams = new HashMap<>();
         mapParams.put("service_type_code", "PAYNOW");
@@ -77,6 +111,12 @@ public class PayonHelper {
         return buildPayment("getQrBankCode", mapParams);
     }
 
+    /**
+     *
+     * @param mapParams - Map of payment information
+     * @return PayonResponse
+     * @throws Exception - Exception throws when call api get error
+     */
     public PayonResponse createQrCode(Map<String, Object> mapParams) throws Exception {
         mapParams.put("merchant_id", this.mcId);
         mapParams.put("service_type_code", "PAYNOW");
@@ -86,6 +126,12 @@ public class PayonHelper {
         return this.buildPayment("createQRCode", mapParams);
     }
 
+    /**
+     *
+     * @param data - provide data from request
+     * @param checksum - provide checksum from request
+     * @return boolean
+     */
     public boolean validateNotify(String data, String checksum) {
         String dataChecksum = PayonSecurity.md5(this.appId + data + this.secretKey);
         return checksum.equals(dataChecksum);

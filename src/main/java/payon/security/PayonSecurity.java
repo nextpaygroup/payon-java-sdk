@@ -20,6 +20,7 @@ public final class PayonSecurity {
      *
      * @param plainText - plain text
      * @return Base64 of encrypted text
+     * @throws Exception - Exception throws when call api get error
      */
     public String encrypt(String plainText) throws Exception
                                                      {
@@ -35,6 +36,7 @@ public final class PayonSecurity {
     /**
      * @param cipherText - encrypted text
      * @return plain text
+     * @throws Exception - Exception throws when call api get error
      */
     public String decrypt(String cipherText) throws Exception {
         byte[] encrypted  = Base64.getDecoder().decode(cipherText);
@@ -64,6 +66,11 @@ public final class PayonSecurity {
         return new Object[]{Arrays.copyOfRange(dx, 0, 32), Arrays.copyOfRange(dx, 32, 48)};
     }
 
+    /**
+     *
+     * @param input - String to encode
+     * @return Base64 md5
+     */
     public static String md5(String input) {
         byte[] byteData;
         try {

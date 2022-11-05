@@ -16,7 +16,7 @@ public class PayonSecurityTest {
     @Test
     public void test2() throws Exception {
         PayonSecurity payonSecurity = new PayonSecurity("password");
-        String plainText = "Test! @#$%^&*( \uD83D\uDE06\uD83D\uDE35\uD83E\uDD21\uD83D\uDC4C 哈罗 こんにちわ Акїў \uD83D\uDE3A";
+        String plainText = "Test!";
         String encrypted = payonSecurity.encrypt(plainText);
         assertEquals(plainText, payonSecurity.decrypt(encrypted));
     }

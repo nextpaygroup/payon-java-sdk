@@ -18,12 +18,12 @@
 <dependency>
     <groupId>io.github.nextpaygroup</groupId>
     <artifactId>payon-java-sdk</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.3</version>
 </dependency>
 ```
 - Cài đặt bằng Gradle
 ```
-implementation group: 'io.github.nextpaygroup', name: 'payon-java-sdk', version: '1.0.1'
+implementation group: 'io.github.nextpaygroup', name: 'payon-java-sdk', version: '1.0.3'
 ```
 
 # Code mẫu

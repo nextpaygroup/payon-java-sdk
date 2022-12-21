@@ -9,6 +9,7 @@ import java.security.cert.X509Certificate;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class PayonHelper {
 
@@ -23,12 +24,21 @@ public class PayonHelper {
     private boolean sslVerifypeer;
     private int maxIdleConnections;
     private long keepAliveDurationMS;
+    private long connectTimeout;
 
     public PayonHelper(long mcId, String appId, String secretKey, String url, String httpAuth, String httpAuthPass) {
-        this(mcId, appId, secretKey, url, httpAuth, httpAuthPass, 0, 300000L);
+        this(mcId, appId, secretKey, url, httpAuth, httpAuthPass, 0, 300000L, 30000L);
     }
 
-    public PayonHelper(long mcId, String appId, String secretKey, String url, String httpAuth, String httpAuthPass, int maxIdleConnections, long keepAliveDurationMS) {
+    public PayonHelper(long mcId,
+                       String appId,
+                       String secretKey,
+                       String url,
+                       String httpAuth,
+                       String httpAuthPass,
+                       int maxIdleConnections,
+                       long keepAliveDurationMS,
+                       long connectTimeout) {
         this.mcId = mcId;
         this.appId = appId;
         this.secretKey = secretKey;
@@ -62,6 +72,17 @@ public class PayonHelper {
 
     public long getKeepAliveDurationMS() {
         return keepAliveDurationMS;
+    }
+
+    public long getConnectTimeout() {
+        return connectTimeout;
+    }
+
+    public void setConnectTimeout(long connectTimeout) {
+        if (connectTimeout < 0L) {
+            throw new IllegalArgumentException("timeout < 0");
+        }
+        this.connectTimeout = connectTimeout;
     }
 
     public void setKeepAliveDurationMS(long keepAliveDurationMS) {
@@ -207,7 +228,11 @@ public class PayonHelper {
 
         OkHttpClient httpClient = new OkHttpClient();
 
-        if(maxIdleConnections > 0) {
+        if(connectTimeout > 0L) {
+            httpClient.setConnectTimeout(connectTimeout, TimeUnit.MILLISECONDS);
+        }
+
+        if(maxIdleConnections > 0L) {
             httpClient.setConnectionPool(new ConnectionPool(maxIdleConnections, keepAliveDurationMS));
         }
 

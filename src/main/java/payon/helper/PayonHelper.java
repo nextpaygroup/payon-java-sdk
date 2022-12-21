@@ -1,6 +1,5 @@
 package payon.helper;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.*;
 import payon.security.PayonSecurity;
@@ -22,8 +21,14 @@ public class PayonHelper {
     private final String httpAuthPass;
     private final String refCode;
     private boolean sslVerifypeer;
+    private int maxIdleConnections;
+    private long keepAliveDurationMS;
 
     public PayonHelper(long mcId, String appId, String secretKey, String url, String httpAuth, String httpAuthPass) {
+        this(mcId, appId, secretKey, url, httpAuth, httpAuthPass, 0, 300000L);
+    }
+
+    public PayonHelper(long mcId, String appId, String secretKey, String url, String httpAuth, String httpAuthPass, int maxIdleConnections, long keepAliveDurationMS) {
         this.mcId = mcId;
         this.appId = appId;
         this.secretKey = secretKey;
@@ -32,6 +37,8 @@ public class PayonHelper {
         this.httpAuthPass = httpAuthPass;
         this.sslVerifypeer = true;
         this.refCode = "MCAPI-JV";
+        this.setMaxIdleConnections(maxIdleConnections);
+        this.setKeepAliveDurationMS(keepAliveDurationMS);
     }
 
     public boolean isSslVerifypeer() {
@@ -40,6 +47,28 @@ public class PayonHelper {
 
     public void setSslVerifypeer(boolean sslVerifypeer) {
         this.sslVerifypeer = sslVerifypeer;
+    }
+
+    public int getMaxIdleConnections() {
+        return maxIdleConnections;
+    }
+
+    public void setMaxIdleConnections(int maxIdleConnections) {
+        if(maxIdleConnections < 0) {
+            throw new IllegalArgumentException("Max idle connections < 0: " + maxIdleConnections);
+        }
+        this.maxIdleConnections = maxIdleConnections;
+    }
+
+    public long getKeepAliveDurationMS() {
+        return keepAliveDurationMS;
+    }
+
+    public void setKeepAliveDurationMS(long keepAliveDurationMS) {
+        if (keepAliveDurationMS <= 0L) {
+            throw new IllegalArgumentException("keepAliveDuration <= 0: " + keepAliveDurationMS);
+        }
+        this.keepAliveDurationMS = keepAliveDurationMS;
     }
 
     /**
@@ -177,6 +206,10 @@ public class PayonHelper {
                         .toString().getBytes());
 
         OkHttpClient httpClient = new OkHttpClient();
+
+        if(maxIdleConnections > 0) {
+            httpClient.setConnectionPool(new ConnectionPool(maxIdleConnections, keepAliveDurationMS));
+        }
 
         if(this.sslVerifypeer == false) {
             final TrustManager[] trustAllCerts = trustAllCerts();

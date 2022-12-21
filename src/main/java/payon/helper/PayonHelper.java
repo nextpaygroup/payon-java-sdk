@@ -229,9 +229,7 @@ public class PayonHelper {
 
         OkHttpClient httpClient = new OkHttpClient();
 
-        if(connectTimeout > 0L) {
-            httpClient.setConnectTimeout(connectTimeout, TimeUnit.MILLISECONDS);
-        }
+        httpClient.setConnectTimeout(connectTimeout, TimeUnit.MILLISECONDS);
 
         if(maxIdleConnections > 0L) {
             httpClient.setConnectionPool(new ConnectionPool(maxIdleConnections, keepAliveDurationMS));

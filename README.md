@@ -207,3 +207,15 @@ if(response){
 PayonHelper helper = new PayonHelper(mcId, appId, secretKey, url, httpAuth, httpAuthPass);
 helper.setSslVerifypeer(false);
 ```
+• Cấu hình Connect pool
+
+```java
+PayonHelper helper = new PayonHelper(mcId, appId, secretKey, url, httpAuth, httpAuthPass);
+helper.setMaxIdleConnections(5);
+helper.setKeepAliveDurationMS(300000L); // milliseconds
+```
+hoặc
+
+```java
+PayonHelper helper = new PayonHelper(mcId, appId, secretKey, url, httpAuth, httpAuthPass, 5, 300000L);
+```

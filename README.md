@@ -10,6 +10,7 @@
     - Thông tin phí trả góp
     - Tạo yêu cầu thanh toán trả góp
     - Kiểm tra giao dịch
+    - Hỗ trợ connect pool
 
 # Cài đặt và loading
 
@@ -18,12 +19,20 @@
 <dependency>
     <groupId>io.github.nextpaygroup</groupId>
     <artifactId>payon-java-sdk</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
+</dependency>
+```
+- java 8
+```xml
+<dependency>
+    <groupId>io.github.nextpaygroup</groupId>
+    <artifactId>payon-java-sdk</artifactId>
+    <version>1.0.4.8</version>
 </dependency>
 ```
 - Cài đặt bằng Gradle
 ```
-implementation group: 'io.github.nextpaygroup', name: 'payon-java-sdk', version: '1.0.3'
+implementation group: 'io.github.nextpaygroup', name: 'payon-java-sdk', version: '1.0.4'
 ```
 
 # Code mẫu

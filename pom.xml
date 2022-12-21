@@ -6,7 +6,7 @@
 
     <groupId>io.github.nextpaygroup</groupId>
     <artifactId>payon-java-sdk</artifactId>
-    <version>1.0.4-jdk11</version>
+    <version>1.0.4</version>
     <packaging>jar</packaging>
     <build>
         <plugins>

@@ -19,7 +19,7 @@
 <dependency>
     <groupId>io.github.nextpaygroup</groupId>
     <artifactId>payon-java-sdk</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
 </dependency>
 ```
 - java 8
@@ -27,12 +27,12 @@
 <dependency>
     <groupId>io.github.nextpaygroup</groupId>
     <artifactId>payon-java-sdk</artifactId>
-    <version>1.0.4.8</version>
+    <version>1.0.5.8</version>
 </dependency>
 ```
 - Cài đặt bằng Gradle
 ```
-implementation group: 'io.github.nextpaygroup', name: 'payon-java-sdk', version: '1.0.4'
+implementation group: 'io.github.nextpaygroup', name: 'payon-java-sdk', version: '1.0.5'
 ```
 
 # Code mẫu
@@ -213,6 +213,7 @@ helper.setSslVerifypeer(false);
 PayonHelper helper = new PayonHelper(mcId, appId, secretKey, url, httpAuth, httpAuthPass);
 helper.setMaxIdleConnections(5);
 helper.setKeepAliveDurationMS(300000L); // milliseconds
+helper.setConnectTimeout(30000L); // 30s default
 ```
 hoặc
 

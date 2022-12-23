@@ -49,6 +49,7 @@ public class PayonHelper {
         this.refCode = "MCAPI-JV";
         this.setMaxIdleConnections(maxIdleConnections);
         this.setKeepAliveDurationMS(keepAliveDurationMS);
+        this.setConnectTimeout(connectTimeout);
     }
 
     public boolean isSslVerifypeer() {
